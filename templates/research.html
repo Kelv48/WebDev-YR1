@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+{% if research %}
+<h1>Our Projects</h1>
+{% for project in research %}
+<table class="catalog">
+<tr>
+  <td>
+  <section class="card">
+      <h1>{{ project["project_name"] }}</h1>
+      <p> Commenced {{ project["started"] }}</p>
+      <p> {{ project["description"] }}</p>
+</section>
+</td>
+</tr>
+</table>
+{% endfor %}
+{% endif %}
+
+{% endblock %}

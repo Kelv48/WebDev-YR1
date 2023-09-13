@@ -1,0 +1,271 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+{% if request.method == "POST" %}
+<!-- This code affects the search product pages -->
+
+<!-- When the user uses the search function this displays all products 
+that fit the description i.e include the search term -->
+{% if products %}
+{% for product in products %}
+<table class="catalog">
+    <tr>
+        <td>
+            <section class="card">
+                <p>
+                    <a href="{{ url_for('product', product_id=product['product_id']) }}"><img src="{{ product['img'] }}"
+                            alt="{{ product['name'] }}" style="width: 100%" /></a>
+                </p>
+                <h1>{{ product["name"] }}</h1>
+                <p class="price">Price: €{{ product["price"] }}</p>
+                <p><small>{{ product["description"] }}</small></p>
+                <p><button
+                        onclick=window.location.href="{{ url_for('product', product_id=product['product_id'] ) }}">See
+                        Details</button></p>
+            </section>
+        </td>
+    </tr>
+</table>
+{% endfor %}
+{% endif %}
+{% if services %}
+{% for service in services %}
+<!-- When the user uses the search function this displays all services 
+that fit the description i.e include the search term -->
+<table class="catalog">
+    <tr>
+        <td>
+            <section class="card">
+                <p>
+                    <a href="{{ url_for('product', product_id=service['product_id']) }}"><img src="{{ service['img'] }}"
+                            alt="{{ service['name'] }}" style="width: 100%" /></a>
+                </p>
+                <h1>{{ service["name"] }}</h1>
+                <p class="price">Price: €{{ service["price"] }}</p>
+                <p><small>{{ service["description"] }}</small></p>
+                <p><button
+                        onclick=window.location.href="{{ url_for('product', product_id=service['product_id'] ) }}">See
+                        Details</button></p>
+            </section>
+        </td>
+    </tr>
+</table>
+{% endfor %}
+{% endif %}
+<!-- This code affects the individual product pages -->
+{% else %}
+{% if product %}
+<section class="product">
+    <section class="product-img">
+        <img src="../{{ product['img'] }}">
+    </section>
+    <section class="product-listing">
+        <span class="content">
+            <h1 class="name">{{ product["name"] }}</h1>
+            <p class="info">{{ product["description"] }}</p>
+            <p class="product-price">€{{ product["price"] }}</p>
+            <section class="btn-and-rating-box">
+                <section class="rating">
+                    <!-- This code is a work around to get a dynamic rating system without the use of java script -->
+                    {% if score == 0 %}
+                    <p>No reviews for this product</p>
+                    {% elif score == 1 %}
+                    <img src="../static/star.png" alt="">
+                    <!--It uses two versions of an image-->
+                    <img src="../static/star-empty.png" alt="">
+                    <!--The filled in version of the star and the empty star to-->
+                    <img src="../static/star-empty.png" alt="">
+                    <!--simulate a rating system  -->
+                    <img src="../static/star-empty.png" alt="">
+                    <img src="../static/star-empty.png" alt="">
+                    {% elif score == 2 %}
+                    <img src="../static/star.png" alt="">
+                    <img src="../static/star.png" alt="">
+                    <img src="../static/star-empty.png" alt="">
+                    <img src="../static/star-empty.png" alt="">
+                    <img src="../static/star-empty.png" alt="">
+                    {% elif score == 3 %}
+                    <img src="../static/star.png" alt="">
+                    <img src="../static/star.png" alt="">
+                    <img src="../static/star.png" alt="">
+                    <img src="../static/star-empty.png" alt="">
+                    <img src="../static/star-empty.png" alt="">
+                    {% elif score == 4 %}
+                    <img src="../static/star.png" alt="">
+                    <img src="../static/star.png" alt="">
+                    <img src="../static/star.png" alt="">
+                    <img src="../static/star.png" alt="">
+                    <img src="../static/star-empty.png" alt="">
+                    {% elif score == 5 %}
+                    <img src="../static/star.png" alt="">
+                    <img src="../static/star.png" alt="">
+                    <img src="../static/star.png" alt="">
+                    <img src="../static/star.png" alt="">
+                    <img src="../static/star.png" alt="">
+                    {% endif %}
+                </section>
+                {% if cart == None %}
+                <!--Checks whether something is already in the users cart/wishlist -->
+                <!--Auto displays none if user is signed out -->
+                <!-- If user is logged in and item in cart/wishlist allow them to view their wishlist/cart rather than adding the item a
+                second time -->
+                <button class="btn" button
+                    onclick=window.location.href="{{ url_for('add_to_cart', product_id=product['product_id'] ) }}">Add
+                    to Cart</button>
+                {% elif cart %}
+                <button class="btn" button
+                    onclick=window.location.href="{{ url_for('cart', product_id=product['product_id'] ) }}">View
+                    in Cart</button>
+                {% endif %}
+                {% if wishlist == None %}
+                <button class="btn" button
+                    onclick=window.location.href="{{ url_for('add_to_wishlist', product_id=product['product_id'] ) }}">Add
+                    to Wishlist</button>
+                {% elif wishlist %}
+                <button class="btn" button
+                    onclick=window.location.href="{{ url_for('wishlist', product_id=product['product_id'] ) }}">View
+                    in Wishlist</button>
+                {% endif %}
+        </span>
+    </section>
+</section>
+</section>
+<section class="review">
+    <h1>Reviews</h1>
+    <section class="rev">
+        <!-- Displays the form to enter in new reviews -->
+        <form action="{{ url_for('review', product_id=product['product_id'] )}}" method="post" class="form-rev">
+            {{ review_form.hidden_tag() }}
+            {{ review_form.review.label }}
+            {{ review_form.review() }}
+            {{ review_form.score.label }}
+            {{ review_form.score() }}
+            <br />
+            {{ review_form.submit() }}
+        </form>
+        <!-- Checks for reviews for the current item and displays them if there are some -->
+        <section class="content-rev">
+            {% for review in reviews %}
+            <table>
+                <tr>
+                    <td>
+                        <h1>{{ review["user_id"]}}</h1>
+                    </td>
+                    <td>{{ review["review"] }}</td>
+                </tr>
+            </table>
+            {% endfor %}
+        </section>
+    </section>
+
+    {% endif %}
+    {% if service %}
+    <section class="product">
+        <section class="product-img">
+            <img src="../{{ service['img'] }}">
+        </section>
+        <section class="product-listing">
+            <span class="content">
+                <h1 class="name">{{ service["name"] }}</h1>
+                <p class="info">{{ service["description"] }}</p>
+                <p class="product-price">€{{ service["price"] }}</p>
+                <section class="btn-and-rating-box">
+                    <section class="rating">
+                        {% if score == 0 %}
+                        <p>No reviews for this product</p>
+                        {% elif score == 1 %}
+                        <img src="../static/star.png" alt="">
+                        <!--It uses two versions of an image-->
+                        <img src="../static/star-empty.png" alt="">
+                        <!--The filled in version of the star and the empty star to-->
+                        <img src="../static/star-empty.png" alt="">
+                        <!--simulate a rating system  -->
+                        <img src="../static/star-empty.png" alt="">
+                        <img src="../static/star-empty.png" alt="">
+                        {% elif score == 2 %}
+                        <img src="../static/star.png" alt="">
+                        <img src="../static/star.png" alt="">
+                        <img src="../static/star-empty.png" alt="">
+                        <img src="../static/star-empty.png" alt="">
+                        <img src="../static/star-empty.png" alt="">
+                        {% elif score == 3 %}
+                        <img src="../static/star.png" alt="">
+                        <img src="../static/star.png" alt="">
+                        <img src="../static/star.png" alt="">
+                        <img src="../static/star-empty.png" alt="">
+                        <img src="../static/star-empty.png" alt="">
+                        {% elif score == 4 %}
+                        <img src="../static/star.png" alt="">
+                        <img src="../static/star.png" alt="">
+                        <img src="../static/star.png" alt="">
+                        <img src="../static/star.png" alt="">
+                        <img src="../static/star-empty.png" alt="">
+                        {% elif score == 5 %}
+                        <img src="../static/star.png" alt="">
+                        <img src="../static/star.png" alt="">
+                        <img src="../static/star.png" alt="">
+                        <img src="../static/star.png" alt="">
+                        <img src="../static/star.png" alt="">
+                        {% endif %}
+                    </section>
+                    {% if cart == None %}
+                    <!--Checks whether something is already in the users cart/wishlist -->
+                    <!--Auto displays none if user is signed out -->
+                    <!-- If user is logged in and item in cart/wishlist allow them to view their wishlist/cart rather than adding the item a
+                    second time -->
+                    <button class="btn" button
+                        onclick=window.location.href="{{ url_for('add_to_cart', product_id=service['product_id'] ) }}">Add
+                        to Cart</button>
+                    {% elif cart %}
+                    <button class="btn" button
+                        onclick=window.location.href="{{ url_for('cart', product_id=service['product_id'] ) }}">View
+                        in Cart</button>
+                    {% endif %}
+                    {% if wishlist == None %}
+                    <button class="btn" button
+                        onclick=window.location.href="{{ url_for('add_to_wishlist', product_id=service['product_id'] ) }}">Add
+                        to Wishlist</button>
+                    {% elif wishlist %}
+                    <button class="btn" button
+                        onclick=window.location.href="{{ url_for('wishlist', product_id=service['product_id'] ) }}">View
+                        in Wishlist</button>
+                    {% endif %}
+            </span>
+        </section>
+    </section>
+</section>
+<section class="review">
+    <h1>Reviews</h1>
+    <section class="rev">
+        <!-- Allows users to enter in new reviews -->
+        <form action="{{ url_for('review', product_id=service['product_id'] )}}" method="post">
+            {{ review_form.hidden_tag() }}
+            {{ review_form.review.label }}
+            {{ review_form.review() }}
+            {{ review_form.score.label }}
+            {{ review_form.score() }}
+            <br />
+            {{ review_form.submit() }}
+        </form>
+
+        <!-- Checks for reviews on the current product/service -->
+        <section class="content-rev">
+            {% for review in reviews %}
+            <table>
+                <tr>
+                    <td>
+                        <h1>{{ review["user_id"]}}</h1>
+                    </td>
+                    <td>{{ review["review"] }}</td>
+                </tr>
+            </table>
+            {% endfor %}
+        </section>
+    </section>
+
+</section>
+
+{% endif %}
+{% endif %}
+
+{% endblock %}

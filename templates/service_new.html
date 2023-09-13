@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+<section class="admin">
+    <form action="" method="post">
+        {{ service_form.hidden_tag() }}
+        {{ service_form.price.label }}
+        {{ service_form.price() }}
+        <br />
+        {{ service_form.description.label }}
+        {{ service_form.description() }}
+        <br/>
+        {{ service_form.name.label }}
+        {{ service_form.name() }}
+        <br />
+        {{ service_form.submit() }}
+    </form>
+</section>
+{% endblock %} 

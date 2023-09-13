@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+<section id="about">
+<h1>About Quantum VisionWorks</h1>
+
+<p>Quantum VisionWorks and its parent company QAI Industries are newcomers to the 
+    technology game, who are trying to revolutionize the industry. We have an active team behind us who do large amounts of the work
+{% if team %}
+<h1>Meet the Team</h1>
+<h2>These are some of the crucial employees working in our business</h2>
+</section>
+{% for employee in team %}
+<table class="catalog">
+<tr>
+  <td>
+  <section class="card">
+  <p>
+      <img src="{{ employee['img'] }}" alt="{{ employee['name'] }}" style="width: 100%"/></a>
+  </p>
+      <h1>{{ employee["name"] }}</h1>
+      <p> {{ employee["age"] }}</p>
+      <p> {{ employee["department"] }}</p>
+      <p> {{ employee["job_description"] }}</p>
+</section>
+</td>
+</tr>
+</table>
+{% endfor %}
+{% endif %}
+
+{% if careers %}
+<h1>These are some of the careers we offer</h1>
+{% for career in careers %}
+<table class="catalog">
+<tr>
+  <td>
+  <section class="card">
+      <p> {{ career["department"] }}</p>
+      <p> {{ career["job_description"] }}</p>
+{% endfor %}
+{% endif %}
+{% endblock %}

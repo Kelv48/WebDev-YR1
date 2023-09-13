@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+{% if orders %}
+<!-- Checks if the user has any orders -->
+<h1>My Orders</h1>
+<section class="cart">
+    <table class="cart-table">
+        {% for order in orders %}
+        <tr class="row">
+            <td> <img src='{{ order["image"] }}' /></td>
+            <td>Quantity: {{ order["quantity"] }}</td>
+            <td>Product/Service Name: {{order["name"] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <!-- If none informs the user
+It can be empty as nothing has been ordered if the order 
+was confirmed delivered by the admin account -->
+    <h1>You either have no orders or all orders have been delivered</h1>
+    {% endif %}
+</section>
+
+{% endblock %}

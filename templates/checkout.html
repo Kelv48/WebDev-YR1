@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+<section class="cart">
+    <h1>Checkout</h1>
+    <table class="cart-table">
+        <tr>
+            <th colspan="2">Name</th>
+            <th>Quantity</th>
+            <th colspan="2">Price</th>
+        </tr>
+        {% for product in products %}
+            <tr class="row">
+                
+                <td> {{product["name"] }}</td>
+                <td> <img src='{{ product["image"] }}'/></td>
+                <td>{{ product["quantity"] }}</td>
+                <td> {{product["price"] }}</td>
+                <td> {{product["item_price"]}}</td>
+            </tr>
+        {% endfor %} 
+        <tr>
+        <td><button onclick=window.location.href="{{url_for('purchase')}}">
+            Purchase items
+          </button></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            {% for total in totals %}
+            <h1>Order total: {{ total }} </h1>
+            {% endfor %}
+          </td>
+        </tr>
+    </table> 
+
+{% endblock %}

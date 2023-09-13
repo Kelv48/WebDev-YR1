@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+{% if orders %}
+<!-- Shows all current orders -->
+<h1>All Orders</h1>
+<section class="cart">
+    <table class="cart-table">
+        {% for order in orders %}
+        <tr class="row">
+            <td> User: {{ order["user_id"] }}</td>
+            <td> <img src='{{ order["image"] }}' /></td>
+            <td>Quantity: {{ order["quantity"] }}</td>
+            <td>Product/Service Name: {{order["name"] }}</td>
+            <td><button
+                    onclick=window.location.href="{{url_for('orders_delivered', product_id=order['product_id'], user_id=order['user_id'])}}">
+                    Confirm Delivered
+                </button></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <!-- Informs the admin that they have dealt with all orders -->
+    <h1>All orders currently dealt with</h1>
+    {% endif %}
+</section>
+
+{% endblock %}

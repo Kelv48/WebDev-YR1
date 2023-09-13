@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+<section class="admin">
+    <form action="{{ url_for('new_product') }}" method="post">
+        {{ new_product_form.hidden_tag() }}
+        {{ new_product_form.price.label }}
+        {{ new_product_form.price() }}
+        <br />
+        {{ new_product_form.description.label }}
+        {{ new_product_form.description() }}
+        <br />
+        {{ new_product_form.stock.label }}
+        {{ new_product_form.stock() }}
+        <br/>
+        {{ new_product_form.name.label }}
+        {{ new_product_form.name() }}
+        <br />
+        {{ new_product_form.submit() }}
+    </form>
+</section>
+{% endblock %} 

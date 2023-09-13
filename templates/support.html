@@ -1,0 +1,27 @@
+{% extends "base.html" %} 
+
+{% block main_content %} 
+<section class="support">
+    <section class="sup">
+<h1>Customer Support</h1>
+<h2>Contact Us</h2>
+<p>Our Email address is QuantumSupport@email.com</p>
+<p>Our EU phone number is 1234334525</p>
+<p>Our NA phone number is 1224334525</p>
+
+<h2>Support Request</h2>
+<p>Before you send a support ticket please check frequently asked questions <a href="{{url_for('frequent')}}">found here</a> 
+    to see if this solves your problem</p>
+    <section>
+        <form action="" method="post">
+            {{ support_form.hidden_tag() }}
+            {{ support_form.support.label }}
+            {{ support_form.support() }}
+            <br />
+            {{ support_form.submit() }}
+        </form>
+    </section>
+    </section>
+</section>
+
+{% endblock %}

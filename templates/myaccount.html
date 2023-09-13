@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+<section class="admin">
+    <h1>Please note you may need to logout and login under your new user id to see all changes</h1>
+    <form action="" method="post">
+        {{ account_form.hidden_tag() }}
+        {{ account_form.new_user_id.label }}
+        {{ account_form.new_user_id() }}
+        {% for error in account_form.new_user_id.errors %}
+            {{ error }}
+        {% endfor %}
+        <br />
+        {{ account_form.submit() }}
+    </form>
+</section>
+{% endblock %}

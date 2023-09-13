@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+<section class="admin">
+    <form action="" method="post">
+        {{ employee_form.hidden_tag() }}
+        {{ employee_form.name.label }}
+        {{ employee_form.name() }}
+        <br />
+        {{ employee_form.age.label }}
+        {{ employee_form.age() }}
+        <br />
+        {{ employee_form.department.label }}
+        {{ employee_form.department() }}
+        <br/>
+        {{ employee_form.job_description.label }}
+        {{ employee_form.job_description() }}
+        <br />
+        {{ employee_form.submit() }}
+    </form>
+</section>
+{% endblock %} 

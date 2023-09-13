@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+<!-- An index page that requires the user to be an admin to visit -->
+<h1>Administrator Settings</h1>
+<p>
+  <button onclick=window.location.href="{{url_for('employees')}}">
+    Employee Management
+  </button>
+  <button onclick=window.location.href="{{url_for('new_employee')}}">
+    Add New Employees
+  </button>
+  <button onclick=window.location.href="{{url_for('Research_and_development')}}">
+    Research and Development
+  </button>
+  <button onclick=window.location.href="{{url_for('new_Research')}}">
+    New Research and Development Entries
+  </button>
+  <button onclick=window.location.href="{{url_for('catalog_management')}}">
+    Catalog Management
+  </button>
+  <button onclick=window.location.href="{{url_for('new_product')}}">
+    Insert New Products
+  </button>
+  <button onclick=window.location.href="{{url_for('new_service')}}">
+    Insert New Services
+  </button>
+  <button onclick=window.location.href="{{url_for('admin_orders')}}">
+    All Orders
+  </button>
+</p>
+{% endblock %}

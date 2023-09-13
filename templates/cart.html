@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+<p>
+  <button onclick=window.location.href="{{url_for('catalog')}}">
+    Our Catalog
+  </button>
+
+<section class="cart">
+  <h1>Shopping Cart</h1>
+  <!-- Checks for items in the cart and displays info about the items and the quantity of them in the cart -->
+  {% if products %}
+  <table class="cart-table">
+    {% for product in products %}
+    <tr class="row">
+      <td> <img src='{{ product["image"] }}' /></td>
+      <td>Quantity: <a href="{{url_for('remove_from_cart', product_id=product['product_id'])}}"><b>-</b></a> {{
+        product["quantity"] }}
+        <a href="{{url_for('add_to_cart', product_id=product['product_id'])}}"><b>+</b></a>
+      </td>
+      <td>{{ product["product_id"]}}</td>
+      <td>Product/Service Name: {{product["name"] }}</td>
+      <td>Price: {{product["price"] }}</td>
+      <td><button onclick=window.location.href="{{url_for('remove', product_id=product['product_id'])}}">
+          Remove
+        </button></td>
+    </tr>
+    {% endfor %}
+  </table>
+  <button onclick=window.location.href="{{url_for('checkout')}}">
+    Checkout
+  </button>
+</section>
+<!-- If the cart is empty inform the user -->
+{% else %}
+<p>Your cart is empty!</p>
+{% endif %}
+
+{% endblock %}

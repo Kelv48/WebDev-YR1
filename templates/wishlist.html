@@ -1,0 +1,33 @@
+{% extends "base.html" %} 
+
+{% block main_content %}
+<p>
+    <button onclick=window.location.href="{{url_for('catalog')}}">
+        Our Catalog
+      </button>
+
+<section class="cart">
+    <h1>Wishlist</h1>
+    {% if products %}
+    <!-- Checks for items in the users wishlist -->
+    <table class="cart-table">
+        {% for product in products %}
+            <tr class="row">
+                <td> <img src='{{ product["image"] }}'/></td>
+                <td>Product/Service Name: {{product["name"] }}</td>
+                <td><button onclick=window.location.href="{{url_for('remove_wishlist', product_id=product['product_id'])}}">
+                    Remove
+                  </button></td>
+                <td><button onclick=window.location.href="{{url_for('add_to_cart', product_id=product['product_id'])}}">
+                    Add to Cart
+                  </button></td>
+            </tr>
+        {% endfor %} 
+    </table> 
+    </section>
+          {% else %}
+          <!-- Informs them that its empty -->
+            <p>You have no items on your wishlist!</p>
+          {% endif %}
+
+{% endblock %}

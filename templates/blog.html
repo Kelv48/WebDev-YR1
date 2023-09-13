@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+
+<section class="rev">
+<h1>Whats on your mind</h1>
+<form action="" method="post">
+    {{ blog_form.hidden_tag() }}
+    {{ blog_form.post() }}
+    {{ blog_form.submit() }}
+</form>
+<h1>Blog</h1>
+{% for post in blog %}
+    <section class="content-rev">
+    <table>
+        <tr>
+            <td><h1>{{ post["user_id"]}}</h1></td>
+            <td>{{ post["post"] }}</td>
+        </tr>
+    </table>
+</section>
+{% endfor %}
+</section>
+{% endblock %}

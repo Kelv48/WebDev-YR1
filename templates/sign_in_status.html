@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+<main id="login">
+    <section id="Reg">
+    <h1>Register</h1>
+    <form action="{{ url_for('login_status') }}" method="post">
+        {{ register_form.hidden_tag() }}
+        {{ register_form.user_id.label }}
+        {{ register_form.user_id() }}
+        {% for error in register_form.user_id.errors %}
+            {{ error }}
+        {% endfor %}
+        <br />
+        {{ register_form.password.label }}
+        {{ register_form.password() }}
+        {% for error in register_form.password.errors %}
+            {{ error }}
+        {% endfor %}
+        <br />
+        {{ register_form.password2.label }}
+        {{ register_form.password2() }}
+        {% for error in register_form.password2.errors %}
+            {{ error }}
+        {% endfor %}
+        <br />
+        {{ register_form.submit }}
+    </form>
+    </section>
+    <section id="Log">
+    <h1>Login</h1>
+    <form action="{{ url_for('login_status') }}" method="post">
+        {{ login_form.hidden_tag() }}
+        {{ login_form.user_id.label }}
+        {{ login_form.user_id() }}
+        {% for error in login_form.user_id.errors %}
+            {{ error }}
+        {% endfor %}
+        <br />
+        {{ login_form.password.label }}
+        {{ login_form.password() }}
+        {% for error in login_form.user_id.errors %}
+            {{ error }}
+        {% endfor %}
+        <br />
+        {{ login_form.submit() }}
+    </form>
+</section>
+</main>
+{% endblock %}

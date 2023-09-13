@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+{% if employee %}
+<!-- Displays a page for a specific employee -->
+<section class="product">
+    <section class="product-img">
+        <img src="../{{ employee['img'] }}">
+    </section>
+    <section class="product-listing">
+        <span class="content">
+            <h1 class="name">{{ employee["name"] }}</h1>
+            <h2 class="info">{{ employee["age"] }}</h2>
+            <h2 class="info">{{ employee["department"] }}</h2>
+            <h2 class="info">{{ employee["job_description"] }}</h2>
+            <button class="btn" button
+                onclick=window.location.href="{{url_for('employee_management', employee_id=employee['employee_id'])}}">Manage
+                This Employee</button>
+            <button class="btn" button
+                onclick=window.location.href="{{url_for('delete_employee', employee_id=employee['employee_id'])}}">Delete
+                This Employee</button>
+        </span>
+    </section>
+</section>
+
+
+{% endif %}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+<section class="admin">
+    <form action="" method="post">
+        {{ research_form.hidden_tag() }}
+        {{ research_form.project_name.label }}
+        {{ research_form.project_name() }}
+        <br />
+        {{ research_form.started.label }}
+        {{ research_form.started() }}
+        <br/>
+        {{ research_form.description.label }}
+        {{ research_form.description() }}
+        <br />
+        {{ research_form.submit() }}
+    </form>
+</section>
+{% endblock %} 

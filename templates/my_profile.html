@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+{% if profile %}
+<section class="product">
+    <section class="product-img">
+        <img src="../static/images/employees/placeholder.png" />
+    </section>
+    <section class="product-listing">
+        <span class="content">
+            <h1 class="name">{{ profile["user_id"] }}</h1>
+            <p class="info">{{ profile["nickname"] }}</p>
+            <p class="info">{{ profile["age"] }}</p>
+            <p class="product-price">{{ profile["bio"] }}</p>
+        </span>
+        <button onclick=window.location.href="{{ url_for('modify') }}">Change User Id</button>
+        <button onclick=window.location.href="{{ url_for('edit_profile') }}">Edit Profile</button>
+    </section>
+</section>
+{% endif %}
+
+{% if reviews %}
+<section class="content-rev">
+    <h1>Your reviews</h1>
+    {% for review in reviews %}
+    <table>
+        <tr>
+            <td>
+                <h1>{{ review["user_id"]}}</h1>
+            </td>
+            <td>{{ review["review"] }}</td>
+        </tr>
+    </table>
+    {% endfor %}
+</section>
+{% else %}
+<h1>You have no reviews go <a href="{{ url_for('catalog') }}">here</a> to leave some </h1>
+{% endif %}
+
+
+<section id="profile">
+    <section>
+        <section class="cart">
+            <h1>Wishlist</h1>
+            {% if wishlist %}
+            <!-- Checks for items in the users wishlist -->
+            <table class="cart-table">
+                {% for product in wishlist %}
+                <tr class="row">
+                    <td> <img src='{{ product["image"] }}' /></td>
+                    <td>Product/Service Name: {{product["name"] }}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td>
+                        <p><button onclick=window.location.href="{{ url_for('wishlist') }}">Go to
+                                Wishlist</button></p>
+                    </td>
+                </tr>
+            </table>
+            {% else %}
+            <h1>Your Wishlist is currently empty, here is a product you can add</h1>
+        </section>
+        <section class="card">
+            <p>
+                <a href="{{ url_for('product', product_id=suggestion_1['product_id']) }}"><img
+                        src="{{ suggestion_1['img'] }}" alt="{{ suggestion_1['name'] }}" style="width: 100%" /></a>
+            </p>
+            <h1>{{ suggestion_1["name"] }}</h1>
+            <p class="price">Price: €{{ suggestion_1["price"] }}</p>
+            <p><button
+                    onclick=window.location.href="{{ url_for('product', product_id=suggestion_1['product_id'] ) }}">See
+                    Details</button></p>
+        </section>
+        {% endif %}
+    </section>
+    <section class="cart">
+        <h1>Shopping Cart</h1>
+        <!-- Checks for items in the cart and displays info about the items and the quantity of them in the cart -->
+        {% if cart %}
+        <table class="cart-table">
+            {% for product in cart %}
+            <tr class="row">
+                <td> <img src='{{ product["image"] }}' /></td>
+                <td>Product/Service Name: {{product["name"] }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td>
+                    <p><button onclick=window.location.href="{{ url_for('cart') }}">Go to
+                            Cart</button></p>
+                </td>
+            </tr>
+        </table>
+        {% else %}
+        <h1>Your cart is currently empty, here is a product you can add</h1>
+        <section class="card">
+            <p>
+                <a href="{{ url_for('product', product_id=suggestion_2['product_id']) }}"><img
+                        src="{{ suggestion_2['img'] }}" alt="{{ suggestion_2['name'] }}" style="width: 100%" /></a>
+            </p>
+            <h1>{{ suggestion_2["name"] }}</h1>
+            <p class="price">Price: €{{ suggestion_2["price"] }}</p>
+            <p><button
+                    onclick=window.location.href="{{ url_for('product', product_id=suggestion_2['product_id'] ) }}">See
+                    Details</button></p>
+        </section>
+        {% endif %}
+    </section>
+</section>
+</section>
+{% endblock %}

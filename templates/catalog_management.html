@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+{% if products %}
+{% for product in products %}
+<table class="catalog">
+<tr>
+  <td>
+  <section class="card">
+  <p>
+      <a href="{{ url_for('product_management', product_id=product['product_id']) }}"><img src="{{ product['img'] }}" alt="{{ product['name'] }}" style="width: 100%"/></a>
+  </p>
+      <h1>{{ product["name"] }}</h1>
+      <p class="price">Price: €{{ product["price"] }}</p>
+      {% if product["stock"] < 11 %}
+        <p>{{ product["stock"] }} Left in stock</p>
+      {% endif %}
+      <p><button onclick=window.location.href="{{ url_for('product_management', product_id=product['product_id'] ) }}">See Details</button></p>
+</section>
+</td>
+</tr>
+</table>
+{% endfor %}
+{% endif %}
+{% if services %}
+{% for service in services %}
+<table class="catalog">
+<tr>
+  <td>
+  <section class="card">
+  <p>
+      <a href="{{ url_for('product_management', product_id=service['product_id']) }}"><img src="{{ service['img'] }}" alt="{{ service['name'] }}" style="width: 100%"/></a>
+  </p>
+      <h1>{{ service["name"] }}</h1>
+      <p class="price">Price: €{{ service["price"] }}</p>
+      <p><button onclick=window.location.href="{{ url_for('product_management', product_id=service['product_id'] ) }}">See Details</button></p>
+</section>
+</td>
+</tr>
+</table>
+{% endfor %}
+{% endif %}
+
+{% endblock %}  

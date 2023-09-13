@@ -1,0 +1,110 @@
+<html lang="en">
+
+<head>
+    <meta charset=UTF-8>
+    <title>Quantum VisionWorks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <link rel="icon" type="image/x-icon" href="../static/favicon.ico" />
+</head>
+
+<body>
+    <header>
+      
+      <!-- The nav bar across the top of the page is constant throughout the page but changes depending on the users login status -->
+      <section id="nav">
+        <ul>
+        <li><a href="{{url_for('index')}}"><img src="{{ url_for('static',filename='favicon.ico') }}"/></a></li>
+        <li><p><button onclick=window.location.href="{{url_for('index')}}">
+        Home Page
+      </button></p></li>
+      <li><p><button onclick=window.location.href="{{url_for('catalog')}}">
+        Our Catalog
+      </button></p></li>
+      <li><form action="{{ url_for('index') }}" method="post" id="search">
+        {{ search_form.hidden_tag() }}
+        {{ search_form.search.label }}
+        {{ search_form.search() }}
+        {% for error in search_form.search.errors %}
+            {{ error }}
+        {% endfor %} 
+        </form></li>
+        <!-- Checks if the user is logged in and that they are not an admin -->
+        {% if g.user %}
+        {% if g.user != "admin" %}
+        <li><p> 
+          <button onclick=window.location.href="{{url_for('logout')}}">
+            Hi, {{ g.user }} | Logout
+          </button></p></li>
+          <li><p><section class="dropdown">
+            <button class="dropbtn">My Account</button>
+            <span class="dropdown-content">
+              <a href="{{url_for('cart')}}">Cart</a>
+              <a href="{{ url_for('wishlist')}}">My Wishlist</a>
+              <a href="{{url_for('orders')}}">My Orders</a>
+              {% if profile_info != None %}
+              <a href="{{url_for('my_profile')}}">My Profile</a>
+              {% else %}
+              <a href="{{url_for('my_profile_setup')}}">My Profile New</a>
+              {% endif %}
+              <a href="{{url_for('logout')}}">Logout</a>
+            </span>
+          </section></p></li>
+          <li><p><section class="dropdown">
+            <button class="dropbtn">Additional Resources</button>
+            <span class="dropdown-content">
+              <a href="{{url_for('frequent')}}">Frequently Asked Questions</a>
+              <a href="{{url_for('support')}}">Support</a>
+              <a href="{{url_for('blog')}}">Blog</a>
+              <a href="{{url_for('about')}}">About Us</a>
+            </span>
+          </section></p></li>
+          {% endif %}
+        {% else %}
+        <!-- If they aren't logged in allow them to login/register -->
+        <li><p><button onclick=window.location.href="{{url_for('login_status')}}">
+            Register
+          </button></p></li>
+        <li><p><button onclick=window.location.href="{{url_for('login_status')}}">
+            Login
+          </button></p></li>
+          <li><p><section class="dropdown">
+            <button class="dropbtn">Additional Resources</button>
+            <span class="dropdown-content">
+              <a href="{{url_for('frequent')}}">Frequently Asked Questions</a>
+              <a href="{{url_for('support')}}">Support</a>
+              <a href="{{url_for('blog')}}">Blog</a>
+              <a href="{{url_for('about')}}">About Us</a>
+            </span>
+          </section></p></li>
+          {% endif %}
+          
+          <!-- If the user is logged in and is the admin allow them access to the admin menu -->
+        {% if g.user == "admin" %}
+          <li><p><section class="dropdown">
+            <button class="dropbtn">Admin Settings</button>
+            <span class="dropdown-content">
+              <a href="{{url_for('logout')}}">Logout</a>
+              <a href="{{url_for('admin')}}">Admin</a>
+              <a href="{{url_for('employees')}}">Employee Management</a>
+              <a href="{{url_for('new_employee')}}">Add New Employees</a>
+              <a href="{{url_for('Research_and_development')}}">Research and development</a>
+              <a href="{{url_for('new_Research')}}">New R&D entries</a>
+              <a href="{{url_for('catalog_management')}}">Manage Catalog</a>
+              <a href="{{url_for('new_product')}}">Add a New Product</a>
+              <a href="{{url_for('new_service')}}">Add a New Service</a>
+              <a href="{{url_for('admin_support')}}">Support Tickets</a>
+              <a href="{{url_for('admin_orders')}}">All Orders</a>
+            </span>
+          </section>
+          {% endif %}
+        
+</ul>
+    </header>
+
+  </section>
+
+    {% block main_content %}{% endblock %}
+
+</body>
+
+</html>

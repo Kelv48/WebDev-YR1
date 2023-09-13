@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+<h1>Frequently Asked Question</h1>
+{% for question in questions %}
+<section class="content-rev">
+    <table>
+        <tr>
+            <td>
+                <h1>{{ question["user_id"]}}</h1>
+            </td>
+            <td>{{ question["question"] }}</td>
+        </tr>
+    </table>
+</section>
+{% endfor %}
+
+{% endblock %}

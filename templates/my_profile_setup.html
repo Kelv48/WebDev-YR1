@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+<section class="admin">
+    <form action="" method="post">
+        {{ profile_form.hidden_tag() }}
+        {{ profile_form.nickname.label }}
+        {{ profile_form.nickname() }}
+        <br />
+        {{ profile_form.age.label }}
+        {{ profile_form.age() }}
+        <br />
+        {{ profile_form.bio.label }}
+        {{ profile_form.bio() }}
+        <br />
+        {{ profile_form.submit() }}
+    </form>
+</section>
+{% endblock %}
